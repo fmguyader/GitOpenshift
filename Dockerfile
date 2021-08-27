@@ -1,13 +1,11 @@
-FROM debian
-
-RUN apt-get update && apt-get install nodejs npm -y
+FROM python:3.9-slim
 
 WORKDIR /app
 
-COPY ./web/. .
+COPY . .
 
-RUN npm install
+RUN pip install -r requirements.txt
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD ["node", "index.js"]
+CMD [ "gunicorn", "app:app", "-b", "0.0.0.0:80", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "0" ]

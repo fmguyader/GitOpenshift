@@ -1,20 +1,19 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: first-build-config
+  name: first-app
   labels:
-    app: first-build-config
+    app: first-app
 spec: 
   source:
     type: Git
     git: 
-      uri: 
-    contextDir: <folder_name>
+      uri: https://github.com/fmguyader/GitOpenshift 
   strategy:
     type: Docker
     dockerStrategy:
       dockerfilePath: Dockerfile
   output: 
     to:
-      kind: ImageStreamTag
-      name: <notreImage>:<tag>
+      kind: DockerImage
+      name: 'testimage:latest'
